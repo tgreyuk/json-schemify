@@ -1,5 +1,4 @@
 import * as Ajv from 'ajv';
-import * as jsonfile from 'jsonfile';
 import { schemify } from './schema';
 import { Schema } from './schema.interface';
 
@@ -7,7 +6,7 @@ let json: {};
 let schema: Schema;
 
 beforeEach(() => {
-  json = jsonfile.readFileSync(`./spec/mock.json`);
+  json = require(`../spec/mock.js`);
 });
 
 test('should declare JSON schema as draft-07', () => {
@@ -27,7 +26,6 @@ test('should declare a title if required', () => {
 
 test('should validate that the mock json validates against the generated schema', () => {
   schema = schemify(json);
-  jsonfile.writeFileSync('./spec/out/schema.mock.json', schema);
   const ajv = new Ajv();
   const valid = ajv.validate(schema, json);
   if (ajv.errors) {

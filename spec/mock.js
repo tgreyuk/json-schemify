@@ -1,4 +1,4 @@
-{
+module.exports = {
   "title": "Mock JSON",
   "id": 100,
   "date": "2013-10-21T13:28:06.419Z",
