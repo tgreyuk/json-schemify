@@ -6,7 +6,7 @@ import { parse } from './types/any';
  * @param json A valid json object or array
  * @param options Options to pass
  */
-export function generate(
+export function schemify(
   json: {} | Array<any>,
   options?: { id?: string; title?: string },
 ) {

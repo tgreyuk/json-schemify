@@ -1,1 +1,1 @@
-export { generate } from './schema';
+export { schemify } from './schema';
