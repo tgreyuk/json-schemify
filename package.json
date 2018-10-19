@@ -1,0 +1,47 @@
+{
+  "name": "json-schemify",
+  "version": "0.0.0",
+  "description": "Parses any JSON to a valid JSON Schema object.",
+  "main": "dist/index.js",
+  "typings": "dist/index",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "prepare": "rm -rf dist && tsc",
+    "prepublishOnly": "npm run lint && npm run prepare && npm run test",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgreyuk/json-schemify.git"
+  },
+  "keywords": [
+    "json schema object covert generate"
+  ],
+  "author": "Thomas Grey",
+  "license": "MIT",
+  "engines": {
+    "node": ">=7"
+  },
+  "bugs": {
+    "url": "https://github.com/tgreyuk/json-schemify/issues"
+  },
+  "homepage": "https://github.com/tgreyuk/json-schemify#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.5",
+    "@types/jsonfile": "^4.0.1",
+    "@types/lodash": "^4.14.117",
+    "ajv": "^6.5.4",
+    "jest": "^23.6.0",
+    "jsonfile": "^5.0.0",
+    "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.3"
+  }
+}
