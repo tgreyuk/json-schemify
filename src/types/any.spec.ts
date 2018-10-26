@@ -18,7 +18,7 @@ test('should parse as object if json is an object type', () => {
 });
 
 test('should parse as primitive if json is a primative type', () => {
-  const spy = jest.spyOn(primitive, 'parsePrimative');
+  const spy = jest.spyOn(primitive, 'parsePrimitive');
   const json = 1;
   any.parse(json);
   expect(spy).toHaveBeenCalled();

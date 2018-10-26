@@ -18,7 +18,7 @@
     "url": "git+https://github.com/tgreyuk/json-schemify.git"
   },
   "keywords": [
-    "json schema object covert generate"
+    "json schema object convert generate"
   ],
   "author": "Thomas Grey",
   "license": "MIT",
@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/tgreyuk/json-schemify#readme",
   "dependencies": {
-    "@types/node": "^10.12.0",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

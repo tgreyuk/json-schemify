@@ -1,7 +1,7 @@
 import { isBoolean, isInteger, isNumber, isString } from 'lodash';
 import { Schema } from '../schema.interface';
 
-export function parsePrimative(value: any): Schema {
+export function parsePrimitive(value: any): Schema {
   return {
     type: getType(value),
     ...(isString(value) && getFormat(value) && { format: getFormat(value) }),
