@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "prepare": "rm -rf dist && tsc",
-    "prepublishOnly": "npm run lint && npm run prepare && npm run test",
+    "build": "rm -rf dist && tsc",
+    "prepare": "npm run lint && npm run test && npm run build",
     "test": "jest --coverage"
   },
   "repository": {
@@ -18,7 +18,11 @@
     "url": "git+https://github.com/tgreyuk/json-schemify.git"
   },
   "keywords": [
-    "json schema object convert generate"
+    "json",
+    "schema",
+    "object",
+    "convert",
+    "generate"
   ],
   "author": "Thomas Grey",
   "license": "MIT",
