@@ -32,6 +32,9 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
           mergeObject,
           compareObjects[i],
           (mergeValue, compareValue) => {
+            if (!mergeValue) {
+              return;
+            }
             if (isArray(mergeValue.type)) {
               return {
                 type: mergeValue.type.includes(compareValue.type)
