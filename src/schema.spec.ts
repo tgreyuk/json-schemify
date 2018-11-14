@@ -1,4 +1,5 @@
 import * as Ajv from 'ajv';
+import * as jsonfile from 'jsonfile';
 import { schemify } from './schema';
 import { Schema } from './schema.interface';
 
@@ -7,35 +8,32 @@ let mockJson: {};
 
 beforeEach(() => {
   mockJson = {
-    title: 'Mock JSON',
-    id: 100,
-    date: '2013-10-21T13:28:06.419Z',
-    fruits: ['apple', 'orange', 'pear'],
-    mixed: ['stuff', null, 200],
-    employers: [
+    fixtures: [
       {
-        name: 'John Doe',
-        age: 21,
-      },
-      {
-        name: 'John Doe',
-        age: null,
+        deadline_time: '2018-08-10T18:00:00Z',
+        stats: [
+          {
+            goals_scored: {
+              a: [
+                {
+                  value: 1,
+                },
+              ],
+            },
+          },
+        ],
       },
     ],
-    person: {
-      name: 'John Doe',
-      age: 21,
-    },
-    coords: {
-      latitude: 48.858093,
-      longitude: 2.294694,
-    },
   };
 });
 
 test('should declare JSON schema as draft-07', () => {
   schema = schemify(mockJson);
+  jsonfile.writeFileSync('./logs/mock.schema.json', schema);
   expect(schema.$schema).toEqual('http://json-schema.org/draft-07/schema#');
+  const eventLive = jsonfile.readFileSync('./logs/event-live.json');
+  const testSchema = schemify(eventLive);
+  jsonfile.writeFileSync('./logs/event-live.schema.json', testSchema);
 });
 
 test('should declare a unique identifier if required', () => {
