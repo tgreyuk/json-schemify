@@ -5,6 +5,7 @@
 Converts any JSON structure to a valid [JSON Schema](http://json-schema.org/) object.
 
 [![npm](https://img.shields.io/npm/v/json-schemify.svg)](https://www.npmjs.com/package/json-schemify)
+
 [![Build Status](https://travis-ci.org/tgreyuk/json-schemify.svg?branch=master)](https://travis-ci.org/tgreyuk/json-schemify)
 
 ## Getting started
@@ -49,7 +50,7 @@ Options object (all options are optional).
 
 | Option | Description                      |
 | ------ | -------------------------------- |
-| id     | The $id property of the schema   |
+| id     | The \$id property of the schema  |
 | title  | The title property of the schema |
 
 #### Returns

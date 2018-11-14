@@ -26,22 +26,21 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
     });
 
     if (compareObjects.length > 1 && objectsHaveSameKeys(compareObjects)) {
-      const mergeObject = compareObjects[0];
+      const mergeObject: any = compareObjects[0];
+
       for (let i = 1; i < compareObjects.length; i++) {
-        mergeWith(mergeObject, compareObjects[i], (mergeValue, compareValue) => {
-          //if (!mergeValue) {
-          // return null;
-          //}
-          if (isArray(mergeValue.type)) {
+        mergeWith(mergeObject, compareObjects[i], (objValue, srcValue) => {
+          if (!objValue) {
+            return;
+          }
+          if (isArray(objValue.type)) {
             return {
-              type: mergeValue.type.includes(compareValue.type)
-                ? mergeValue.type
-                : [...mergeValue.type, compareValue.type],
+              type: objValue.type.includes(srcValue.type) ? objValue.type : [...objValue.type, srcValue.type],
             };
-          } else if (!isEqual(mergeValue, compareValue)) {
-            return { type: [mergeValue.type, compareValue.type] };
+          } else if (objValue.type !== 'object' && objValue.type !== 'array' && !isEqual(objValue, srcValue)) {
+            return { type: [objValue.type, srcValue.type] };
           } else {
-            return mergeValue;
+            return objValue;
           }
         });
       }

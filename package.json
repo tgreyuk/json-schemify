@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tgreyuk/json-schemify.git"
+    "url": "git+https://github.com/tgreyjs/json-schemify.git"
   },
   "keywords": [
     "json",
@@ -30,9 +30,9 @@
     "node": ">=7"
   },
   "bugs": {
-    "url": "https://github.com/tgreyuk/json-schemify/issues"
+    "url": "https://github.com/tgreyjs/json-schemify/issues"
   },
-  "homepage": "https://github.com/tgreyuk/json-schemify#readme",
+  "homepage": "https://github.com/tgreyjs/json-schemify#readme",
   "dependencies": {
     "lodash": "^4.17.11"
   },
