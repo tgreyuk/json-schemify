@@ -11,7 +11,7 @@ export function parseArray(array: Array<any>): Schema {
 
 function getItems(array: Array<any>): Schema | Array<Schema> {
   const arrayOfTypes: Array<any> = uniqWith(
-    array.map((item) => {
+    array.map(item => {
       return parse(item);
     }),
     isEqual,
@@ -19,7 +19,7 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
 
   if (arrayOfTypes.length > 1) {
     const compareObjects: Array<{}> = [];
-    arrayOfTypes.forEach((type) => {
+    arrayOfTypes.forEach(type => {
       if (type.properties) {
         compareObjects.push(type.properties);
       }
@@ -28,26 +28,22 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
     if (compareObjects.length > 1 && objectsHaveSameKeys(compareObjects)) {
       const mergeObject = compareObjects[0];
       for (let i = 1; i < compareObjects.length; i++) {
-        mergeWith(
-          mergeObject,
-          compareObjects[i],
-          (mergeValue, compareValue) => {
-            if (!mergeValue) {
-              return;
-            }
-            if (isArray(mergeValue.type)) {
-              return {
-                type: mergeValue.type.includes(compareValue.type)
-                  ? mergeValue.type
-                  : [...mergeValue.type, compareValue.type],
-              };
-            } else if (!isEqual(mergeValue, compareValue)) {
-              return { type: [mergeValue.type, compareValue.type] };
-            } else {
-              return mergeValue;
-            }
-          },
-        );
+        mergeWith(mergeObject, compareObjects[i], (mergeValue, compareValue) => {
+          //if (!mergeValue) {
+          // return null;
+          //}
+          if (isArray(mergeValue.type)) {
+            return {
+              type: mergeValue.type.includes(compareValue.type)
+                ? mergeValue.type
+                : [...mergeValue.type, compareValue.type],
+            };
+          } else if (!isEqual(mergeValue, compareValue)) {
+            return { type: [mergeValue.type, compareValue.type] };
+          } else {
+            return mergeValue;
+          }
+        });
       }
       return { type: 'object', properties: mergeObject };
     } else {
@@ -61,10 +57,7 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
 }
 
 function objectsHaveSameKeys(...objects: Array<any>): boolean {
-  const allKeys = objects.reduce(
-    (keys, object) => keys.concat(Object.keys(object)),
-    [],
-  );
+  const allKeys = objects.reduce((keys, object) => keys.concat(Object.keys(object)), []);
   const union = new Set(allKeys);
-  return objects.every((object) => union.size === Object.keys(object).length);
+  return objects.every(object => union.size === Object.keys(object).length);
 }
