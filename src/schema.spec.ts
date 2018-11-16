@@ -1,5 +1,4 @@
 import * as Ajv from 'ajv';
-import * as jsonfile from 'jsonfile';
 import { schemify } from './schema';
 import { Schema } from './schema.interface';
 
@@ -35,8 +34,7 @@ beforeEach(() => {
 });
 
 test('should declare JSON schema as draft-07', () => {
-  schema = schemify(mockJson);
-  jsonfile.writeFileSync('./logs/mock.schema.json', schema);
+  // jsonfile.writeFileSync('./logs/mock.schema.json', schema);
   expect(schema.$schema).toEqual('http://json-schema.org/draft-07/schema#');
 });
 

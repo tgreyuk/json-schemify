@@ -17,14 +17,7 @@ export interface Schema {
    * or "integer" which matches any number with a zero fractional part.
    * An instance validates if and only if the instance is in any of the sets listed for this keyword.
    */
-  type?:
-    | 'boolean'
-    | 'object'
-    | 'array'
-    | 'number'
-    | 'string'
-    | 'integer'
-    | 'null';
+  type?: 'boolean' | 'object' | 'array' | 'number' | 'string' | 'integer' | 'null';
 
   /**
    * date-time:
@@ -39,6 +32,8 @@ export interface Schema {
   format?: 'date-time' | 'date' | 'time' | 'email';
 
   properties?: { [property: string]: Schema };
+
+  patternProperties?: { [property: string]: Schema };
 
   items?: Schema | Array<Schema>;
 
