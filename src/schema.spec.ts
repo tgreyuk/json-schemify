@@ -34,7 +34,7 @@ beforeEach(() => {
 });
 
 test('should declare JSON schema as draft-07', () => {
-  // jsonfile.writeFileSync('./logs/mock.schema.json', schema);
+  schema = schemify(mockJson);
   expect(schema.$schema).toEqual('http://json-schema.org/draft-07/schema#');
 });
 
