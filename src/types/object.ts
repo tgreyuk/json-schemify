@@ -30,7 +30,7 @@ function objectsHaveSameKeys(objects: Array<any>): boolean {
   let match = isObject(objToCompare);
   if (isObject(objToCompare)) {
     objects.forEach(obj => {
-      if (!compareKeys(objToCompare, obj)) {
+      if (isObject(obj) && !compareKeys(objToCompare, obj)) {
         match = false;
       }
     });
