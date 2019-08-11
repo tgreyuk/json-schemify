@@ -1,11 +1,11 @@
 import { isObject, values } from 'lodash';
+
 import { Schema } from '../schema.interface';
 import { parse } from './any';
 
 export function parseObject(object: {}): Schema {
   const objects = values(object);
-
-  if (objectsHaveSameKeys(objects)) {
+  if (objects.length > 1 && objectsHaveSameKeys(objects)) {
     return {
       type: 'object',
       patternProperties: {
