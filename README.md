@@ -5,8 +5,7 @@
 Converts any JSON structure to a valid [JSON Schema](http://json-schema.org/) object.
 
 [![npm](https://img.shields.io/npm/v/json-schemify.svg)](https://www.npmjs.com/package/json-schemify)
-
-[![Build Status](https://travis-ci.org/tgreyuk/json-schemify.svg?branch=master)](https://travis-ci.org/tgreyuk/json-schemify)
+![CI](https://github.com/tgreyuk/json-schemify/actions/workflows/ci.yml/badge.svg?branch=master)
 
 ## Getting started
 
@@ -61,24 +60,21 @@ A valid JSON Schema Object (draft-07)
 
 This example returns a schema at the most basic level:
 
-### JSON
+### API
+
 
 ```js
+const { schemify } = require('json-schemify');
+
 const json = {
   firstName: 'John',
   lastName: 'Doe',
   age: 21,
 };
-```
 
-### API
+const schema = schemify(json);
 
-```js
-const schema = generate(json, {
-  id: 'https://example.com/person.schema.json',
-  title: 'Person',
-});
-
+// do something with the schema
 console.log(schema);
 ```
 
@@ -86,9 +82,7 @@ console.log(schema);
 
 ```js
 {
-  $id: "https://example.com/person.schema.json",
   $schema: "http://json-schema.org/draft-07/schema#",
-  title: "Person",
   type: "object",
   properties: {
     firstName: { "type": "string" },
@@ -98,6 +92,4 @@ console.log(schema);
 }
 ```
 
-## Writing to file?
 
-If the JSON schema is required to be written to file [jsonfile](https://www.npmjs.com/package/jsonfile) does the job very well.
