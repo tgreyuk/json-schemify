@@ -1,6 +1,6 @@
 {
   "name": "json-schemify",
-  "version": "0.0.13",
+  "version": "1.0.0",
   "description": "Converts a JSON structure to a valid JSON Schema object.",
   "main": "dist/index.js",
   "typings": "dist/index",
