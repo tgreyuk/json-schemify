@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/tgreyjs/json-schemify#readme",
   "dependencies": {
+    "@types/node": "^16.4.13",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
