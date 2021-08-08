@@ -1,4 +1,5 @@
-import * as Ajv from 'ajv';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 import { schemify } from './schema';
 import { Schema } from './schema.interface';
 let schema: Schema;
@@ -33,8 +34,6 @@ beforeEach(() => {
 });
 
 test('should declare JSON schema as draft-07', () => {
-  // schema = schemify(jsonfile.readFileSync('./logs/bootstrap.json'));
-  // jsonfile.writeFileSync('./logs/mock.schema.json', schema);
   schema = schemify(mockJson);
   expect(schema.$schema).toEqual('http://json-schema.org/draft-07/schema#');
 });
@@ -52,6 +51,7 @@ test('should declare a title if required', () => {
 test('should validate that the mock json validates against the generated schema', () => {
   schema = schemify(mockJson);
   const ajv = new Ajv();
+  addFormats(ajv);
   const valid = ajv.validate(schema, mockJson);
   if (ajv.errors) {
     console.error(ajv.errors);

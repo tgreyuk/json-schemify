@@ -1,7 +1,7 @@
 {
   "name": "json-schemify",
   "version": "0.0.10",
-  "description": "Parses any JSON to a valid JSON Schema object.",
+  "description": "Converts a JSON structure to a valid JSON Schema object.",
   "main": "dist/index.js",
   "typings": "dist/index",
   "files": [
@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "rm -rf dist && tsc",
-    "prepare": "npm run lint && npm run test && npm run build",
+    "release": "standard-version",
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "jest --coverage"
   },
   "repository": {
@@ -34,18 +35,18 @@
   },
   "homepage": "https://github.com/tgreyjs/json-schemify#readme",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/jsonfile": "^4.0.1",
-    "@types/lodash": "^4.14.118",
-    "ajv": "^6.5.5",
-    "jest": "^23.6.0",
-    "jsonfile": "^5.0.0",
-    "ts-jest": "^23.10.4",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.6"
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.172",
+    "ajv": "^8.6.2",
+    "ajv-formats": "^2.1.0",
+    "jest": "^27.0.6",
+    "standard-version": "^9.3.1",
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.1.0",
+    "tslint": "^5.20.1",
+    "typescript": "^4.3.5"
   }
 }
