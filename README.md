@@ -18,76 +18,108 @@ npm install json-schemify --save-dev
 ### Usage
 
 ```js
-const { schemify } = require('json-schemify');
-```
-
-or
-
-```js
-import { schemify } from 'json-schemify';
+const { writeSchema } = require('json-schemify');
 ```
 
 ## API
 
-The package exposes a single method:
+### writeSchema
 
-### schemify(json, options)
+**writeSchema**(`json`, `filepath`, `options`)
+
+Writes to a JSON schema output file.
 
 ```js
-const schema = schemify(json, options);
+const json= {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 21,
+}
+
+writeSchema(json, 'schema.json');
 ```
 
 #### Params
 
-#### `json`
+##### `json`
 
 Any valid JSON.
 
-#### `options`
+##### `filepath`
 
-Options object (all options are optional).
+The filepath of the file to write.
+
+##### `options`
+
+| Option       | Description                      |
+| ------------ | -------------------------------- |
+| id?          | The \$id property of the schema  |
+| title?       | The title property of the schema |
+| prettyPrint? | Pretty print Json  output        |
+
+___
+
+### schemify
+
+**schemify**(`json`, `options`)
+
+Returns the JSON schema object (rather than writing to file).
+
+
+```js
+const json= {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 21,
+}
+
+const schema = schemify(json);
+
+// do something with schema
+console.log(schema);
+```
+
+#### Params
+
+##### `json`
+
+Any valid JSON.
+
+##### `options`
 
 | Option | Description                      |
 | ------ | -------------------------------- |
-| id     | The \$id property of the schema  |
-| title  | The title property of the schema |
+| id?    | The \$id property of the schema  |
+| title? | The title property of the schema |
 
 #### Returns
 
 A valid JSON Schema Object (draft-07)
 
-## Basic Example
+## Example
 
-This example returns a schema at the most basic level:
+This example returns a basic schema.
 
-### API
-
+### Json
 
 ```js
-const { schemify } = require('json-schemify');
-
-const json = {
+{
   firstName: 'John',
   lastName: 'Doe',
   age: 21,
 };
-
-const schema = schemify(json);
-
-// do something with the schema
-console.log(schema);
 ```
 
 ### Result
 
 ```js
 {
-  $schema: "http://json-schema.org/draft-07/schema#",
-  type: "object",
-  properties: {
-    firstName: { "type": "string" },
-    lastName: { "type": "string" },
-    age: { "type": "integer" }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "firstName": { "type": "string" },
+    "lastName": { "type": "string" },
+    "age": { "type": "integer" }
   }
 }
 ```

@@ -1,55 +1,59 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-import { schemify } from './schema';
-import { Schema } from './schema.interface';
-let schema: Schema;
-let mockJson: {};
+import * as fs from 'fs';
+import * as tmp from 'tmp';
+import { schemify, writeSchema } from './schema';
 
-beforeEach(() => {
-  mockJson = {
-    title: 'Mock JSON',
-    id: 100,
-    date: '2013-10-21T13:28:06.419Z',
-    fruits: ['apple', 'orange', 'pear'],
-    mixed: ['stuff', null, 200],
-    employers: [
-      {
-        name: 'John Doe',
-        age: 21,
-      },
-      {
-        name: 'John Doe',
-        age: null,
-      },
-    ],
-    person: {
+const mockJson = {
+  title: 'Mock JSON',
+  id: 100,
+  date: '2013-10-21T13:28:06.419Z',
+  fruits: ['apple', 'orange', 'pear'],
+  mixed: ['stuff', null, 200],
+  employers: [
+    {
       name: 'John Doe',
       age: 21,
     },
-    coords: {
-      latitude: 48.858093,
-      longitude: 2.294694,
+    {
+      name: 'John Doe',
+      age: null,
     },
-  };
-});
+  ],
+  person: {
+    name: 'John Doe',
+    age: 21,
+  },
+  coords: {
+    latitude: 48.858093,
+    longitude: 2.294694,
+  },
+};
+
+beforeEach(() => {});
 
 test('should declare JSON schema as draft-07', () => {
-  schema = schemify(mockJson);
+  const schema = schemify(mockJson);
   expect(schema.$schema).toEqual('http://json-schema.org/draft-07/schema#');
 });
 
 test('should declare a unique identifier if required', () => {
-  schema = schemify(mockJson, { id: 'http://shema/id.json' });
+  const schema = schemify(mockJson, {
+    id: 'http://shema/id.json',
+  });
   expect(schema.$id).toEqual('http://shema/id.json');
 });
 
 test('should declare a title if required', () => {
-  schema = schemify(mockJson, { title: 'Mock Schema' });
+  const schema = schemify(mockJson, { title: 'Mock Schema' });
   expect(schema.title).toEqual('Mock Schema');
 });
 
 test('should validate that the mock json validates against the generated schema', () => {
-  schema = schemify(mockJson);
+  const schema = schemify(mockJson, {
+    id: 'http://shema/id.json',
+    title: 'Mock Schema',
+  });
   const ajv = new Ajv();
   addFormats(ajv);
   const valid = ajv.validate(schema, mockJson);
@@ -57,4 +61,15 @@ test('should validate that the mock json validates against the generated schema'
     console.error(ajv.errors);
   }
   expect(valid).toBeTruthy();
+});
+
+test('should write to file', () => {
+  tmp.setGracefulCleanup();
+  const tmpobj = tmp.dirSync();
+  const jsonfile = tmpobj.name + '/schema.json';
+  writeSchema(mockJson, jsonfile, {
+    prettyPrint: true,
+    silent: true,
+  });
+  expect(fs.readFileSync(jsonfile).toString()).toMatchSnapshot();
 });
