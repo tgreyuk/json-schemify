@@ -1,15 +1,15 @@
 import { isObject, values } from 'lodash';
-
+import { Json } from 'types';
 import { Schema } from '../schema.interface';
 import { parse } from './any';
 
-export function parseObject(object: {}): Schema {
+export function parseObject(object: Json): Schema {
   const objects = values(object);
   if (objects.length > 1 && objectsHaveSameKeys(objects)) {
     return {
       type: 'object',
       patternProperties: {
-        '^(+)+$': parse(objects[0]),
+        '^(+)+$': parse(objects[0] as Json),
       },
     };
   } else {
@@ -18,7 +18,7 @@ export function parseObject(object: {}): Schema {
       properties: Object.assign(
         {},
         ...Object.entries(object).map(([key, value]) => ({
-          [key]: parse(value),
+          [key]: parse(value as Json),
         })),
       ),
     };
@@ -29,7 +29,7 @@ function objectsHaveSameKeys(objects: Array<any>): boolean {
   const objToCompare = objects[0];
   let match = isObject(objToCompare);
   if (isObject(objToCompare)) {
-    objects.forEach(obj => {
+    objects.forEach((obj) => {
       if (isObject(obj) && !compareKeys(objToCompare, obj)) {
         match = false;
       }

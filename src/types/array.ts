@@ -11,15 +11,15 @@ export function parseArray(array: Array<any>): Schema {
 
 function getItems(array: Array<any>): Schema | Array<Schema> {
   const arrayOfTypes: Array<any> = uniqWith(
-    array.map(item => {
+    array.map((item) => {
       return parse(item);
     }),
     isEqual,
   );
 
   if (arrayOfTypes.length > 1) {
-    const compareObjects: Array<{}> = [];
-    arrayOfTypes.forEach(type => {
+    const compareObjects: Array<Record<string, unknown>> = [];
+    arrayOfTypes.forEach((type) => {
       if (type.properties) {
         compareObjects.push(type.properties);
       }
@@ -35,9 +35,15 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
           }
           if (isArray(objValue.type)) {
             return {
-              type: objValue.type.includes(srcValue.type) ? objValue.type : [...objValue.type, srcValue.type],
+              type: objValue.type.includes(srcValue.type)
+                ? objValue.type
+                : [...objValue.type, srcValue.type],
             };
-          } else if (objValue.type !== 'object' && objValue.type !== 'array' && !isEqual(objValue, srcValue)) {
+          } else if (
+            objValue.type !== 'object' &&
+            objValue.type !== 'array' &&
+            !isEqual(objValue, srcValue)
+          ) {
             return { type: [objValue.type, srcValue.type] };
           } else {
             return objValue;
@@ -56,7 +62,10 @@ function getItems(array: Array<any>): Schema | Array<Schema> {
 }
 
 function objectsHaveSameKeys(...objects: Array<any>): boolean {
-  const allKeys = objects.reduce((keys, object) => keys.concat(Object.keys(object)), []);
+  const allKeys = objects.reduce(
+    (keys, object) => keys.concat(Object.keys(object)),
+    [],
+  );
   const union = new Set(allKeys);
-  return objects.every(object => union.size === Object.keys(object).length);
+  return objects.every((object) => union.size === Object.keys(object).length);
 }
